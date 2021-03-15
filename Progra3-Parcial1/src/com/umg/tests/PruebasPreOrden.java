@@ -16,36 +16,36 @@ import com.umg.parcial.Arboles;
 /**
  * Esta Clase de test tiene como objetivo automatizar las pruebas al examen realizado
  * No debe ser modificada o alterada ya que puede pruducir errores en la autoEvaluacion.
- * @author Carlos Hern·ndez
+ * @author Carlos Hern√°ndez
  *
  */
 
 public class PruebasPreOrden {
-	
+
 
 	private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
 	private final ByteArrayOutputStream errContent = new ByteArrayOutputStream();
 	private final PrintStream originalOut = System.out;
 	private final PrintStream originalErr = System.err;
-	
+
 	@Before
 	public void setUpStreams() {
-	    System.setOut(new PrintStream(outContent));
-	    System.setErr(new PrintStream(errContent));
+		System.setOut(new PrintStream(outContent));
+		System.setErr(new PrintStream(errContent));
 	}
 
 	@After
 	public void restoreStreams() {
-	    System.setOut(originalOut);
-	    System.setErr(originalErr);
+		System.setOut(originalOut);
+		System.setErr(originalErr);
 	}
-	
+
 	@Test
 	public void when_opcion_salir() {
 		InputStream sysInBackup = System.in; // backup System.in to restore it later
 		ByteArrayInputStream in = new ByteArrayInputStream("0".getBytes());
 		System.setIn(in);
-		
+
 		Arboles.main(null);
 		String expected = new String("1. MOSTRAR\r\n"
 				+ "2. GUARDAR\r\n"
@@ -55,13 +55,13 @@ public class PruebasPreOrden {
 				+ "FIN");
 		assertEquals(expected.trim(), outContent.toString().trim());
 	}
-	
+
 	@Test
 	public void when_opcion_guardar() {
 		InputStream sysInBackup = System.in; // backup System.in to restore it later
 		ByteArrayInputStream in = new ByteArrayInputStream("2\r\n1\r\n0".getBytes());
 		System.setIn(in);
-		
+
 		Arboles.main(null);
 		String expected = new String("1. MOSTRAR\r\n"
 				+ "2. GUARDAR\r\n"
@@ -76,19 +76,19 @@ public class PruebasPreOrden {
 				+ "FIN");
 		assertEquals(expected.trim(), outContent.toString().trim());
 	}
-	
+
 	@Test
 	public void when_opcion_mostar() {
 		InputStream sysInBackup = System.in; // backup System.in to restore it later
 		ByteArrayInputStream in2 = new ByteArrayInputStream("1\r\n0".getBytes());
 		System.setIn(in2);
-		
+
 		Arboles.main(null);
 		String expected = new String("1. MOSTRAR\r\n"
 				+ "2. GUARDAR\r\n"
 				+ "0. SALIR\r\n"
 				+ "INGRESE OPCION\r\n"
-				
+
 				+ "6\r\n"
 				+ "4\r\n"
 				+ "2\r\n"
@@ -97,17 +97,17 @@ public class PruebasPreOrden {
 				+ "7\r\n"
 				+ "9\r\n"
 				+ "INGRESE OPCION\r\n"
-				
+
 				+ "FIN");
 		assertEquals(expected.trim(), outContent.toString().trim());
 	}
-	
+
 	@Test
 	public void when_guardar_y_mostar() {
 		InputStream sysInBackup = System.in; // backup System.in to restore it later
 		ByteArrayInputStream in2 = new ByteArrayInputStream("2\r\n1\r\n1\r\n0".getBytes());
 		System.setIn(in2);
-		
+
 		Arboles.main(null);
 		String expected = new String("1. MOSTRAR\r\n"
 				+ "2. GUARDAR\r\n"
@@ -132,13 +132,13 @@ public class PruebasPreOrden {
 				+ "FIN");
 		assertEquals(expected.trim(), outContent.toString().trim());
 	}
-	
+
 	@Test
 	public void when_guardar_muchos_y_mostar() {
 		InputStream sysInBackup = System.in; // backup System.in to restore it later
 		ByteArrayInputStream in2 = new ByteArrayInputStream("2\r\n3\r\n2\r\n1\r\n2\r\n14\r\n2\r\n15\r\n2\r\n13\r\n1\r\n0".getBytes());
 		System.setIn(in2);
-		
+
 		Arboles.main(null);
 		String expected = new String("1. MOSTRAR\r\n"
 				+ "2. GUARDAR\r\n"

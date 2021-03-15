@@ -16,9 +16,9 @@ public class Arboles {
 			opcion = sc.nextInt();
 			if (opcion == 1) {
 				//Invocar método mostrar
-				bt.mostrar();
+				bt.mostrar(bt.raiz);
 			}else if (opcion == 2) {
-				//Invocar método mostrar
+				//Invocar método guardar
 				bt.agregar(sc);
 			}
 			
@@ -42,17 +42,44 @@ class ArbolBinario {
 		raiz = new Nodo(6,nodo4,nodo8);
 	}
 
+	private Nodo agregarDatos(Nodo miNodo, int valor) {
+
+		if (null == miNodo) {
+			return new Nodo(valor);
+		}
+
+		if (valor < miNodo.value) {
+			miNodo.setIzq(agregarDatos(miNodo.getIzq(), valor));
+		} else if (valor > miNodo.value) {
+			miNodo.setDer(agregarDatos(miNodo.getDer(), valor));
+		} else {
+			return miNodo;
+		}
+
+		return miNodo;
+
+	}
+
 	
 
 	public void agregar(Scanner sc) {
 		System.out.println("INGRESE VALOR");
 		//escriba codigo para ingresar
+		int numero = sc.nextInt();
+		raiz = agregarDatos(raiz, numero);
+
+
 	}
 	
 	
 	
-	public void mostrar() {
+	public void mostrar(Nodo nodoAMostrar) {
 		//escriba codigo para mostrar
+		if (nodoAMostrar != null) {
+			System.out.println(nodoAMostrar.value);
+			mostrar(nodoAMostrar.getIzq());
+			mostrar(nodoAMostrar.getDer());
+		}
 	}
 }
 
@@ -67,7 +94,7 @@ class Nodo{
 		this.der = der;
 	}
 	public Nodo(int value) {
-		System.out.println("guardar "+value);
+		System.out.println("guardar " + value);
 		this.value = value;
 	}
 	public int getValue() {
